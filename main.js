@@ -126,6 +126,34 @@ async function stakeR2USD(wallet) {
   }
 }
 
+async function depowbtc(wallet) {
+  try {
+    const wbtcBalanceRaw = await checkBalance(wallet, wbtcaddress);
+    const wbtcBalance = parseFloat(wbtcBalanceRaw).toFixed(1);
+    console.log(chalk.hex('#20B2AA')(`💰 Saldo WBTC`, wbtcBalance));
+
+    const depositca = new ethers.Contract(depo_router, addLP_abi, wallet);
+    await approve(wallet, wbtcAddress, depo_router, amountwbtc);
+    console.log(chalk.hex('#20B2AA')(`📤 DEPOSIT ${amountwbtc} WBTC `));
+
+    const tx = await depositca.stake(
+      wbtcaddress,
+      amountwbtc,
+      {
+        gasLimit: 500000,
+      }
+    );
+
+    console.log(chalk.hex('#FF8C00')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx1.hash}`));
+
+    await tx1.wait();
+    console.log(chalk.hex('#66CDAA')(`✅ Deposit WBTC Suksess\n`));
+  } catch (error) {
+    console.error(`❌ Failed to ADD Liquidity:`, error);
+    console.log();
+  }
+}
+
 async function addLP1(wallet) {
   try {
     const usdcBalanceRaw = await checkBalance(wallet, usdcAddress);
@@ -222,6 +250,10 @@ async function main() {
 
     console.log(chalk.hex('#66CDAA')(`🚀 STAKE`));
     await stakeR2USD(wallet);
+    await delay(5000);
+
+    console.log(chalk.hex('#66CDAA')(`🚀 DEPOSIT WBTC`));
+    await depowbtc(wallet);
     await delay(5000);
 
     console.log(chalk.hex('#66CDAA')(`🚀 ADD USDC-R2USDC`));
