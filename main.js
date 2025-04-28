@@ -108,13 +108,14 @@ async function depowbtc(wallet) {
     const wbtcBalance = parseFloat(wbtcBalanceRaw).toFixed(1);
     console.log(chalk.hex('#20B2AA')(`💰 Saldo WBTC: ${wbtcBalance}`));
 
+    const amountWei = ethers.parseUnits(amountwbtc, 8);
     const depositca = new ethers.Contract(depo_router, addLP_abi, wallet);
-    await approve(wallet, wbtcAddress, depo_router, amountwbtc);
+    await approve(wallet, wbtcAddress, depo_router, amountWei);
     console.log(chalk.hex('#20B2AA')(`📤 DEPOSIT ${amountwbtc} WBTC `));
 
     const tx = await depositca.stake(
       wbtcAddress,
-      amountwbtc,
+      amountWei,
       {
         gasLimit: 500000,
       }
