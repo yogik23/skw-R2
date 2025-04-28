@@ -218,19 +218,19 @@ async function main() {
     console.log(chalk.hex('#7B68EE')(`👤 Memproses ${wallet.address}\n`));
     console.log(chalk.hex('#66CDAA')(`🚀 SWAP`));
     await swapUSDC(wallet);
-    await delay(2000);
+    await delay(5000);
 
     console.log(chalk.hex('#66CDAA')(`🚀 STAKE`));
     await stakeR2USD(wallet);
-    await delay(2000);
+    await delay(5000);
 
     console.log(chalk.hex('#66CDAA')(`🚀 ADD USDC-R2USDC`));
     await addLP1(wallet);    
-    await delay(2000);
+    await delay(5000);
 
     console.log(chalk.hex('#66CDAA')(`🚀 ADD R2USDC-sR2USDC`));
     await addLP2(wallet);
-    await delay(2000);  
+    await delay(5000);  
 
   }
 }
