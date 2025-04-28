@@ -56,22 +56,21 @@ async function checkBalance(wallet, tokenAddress) {
   try {
     const Contract = new ethers.Contract(tokenAddress, erc20_abi, wallet);
     const balance = await Contract.balanceOf(wallet.address);
-    return balance; // Returning raw balance for conversion
+    return balance;
   } catch (error) {
     console.error(`Failed to check balance for token ${tokenAddress}:`, error);
   }
 }
 
-// Fungsi untuk mengonversi saldo dalam unit terkecil ke dalam satuan yang sesuai
 async function getFormattedBalance(wallet, tokenAddress, decimals) {
   const balanceRaw = await checkBalance(wallet, tokenAddress);
-  return ethers.formatUnits(balanceRaw, decimals); // Format sesuai desimal
+  return ethers.formatUnits(balanceRaw, decimals);
 }
 
 async function swapUSDC(wallet) {
   try {
-    const usdcBalanceRaw = await getFormattedBalance(wallet, usdcAddress, 6); // USDC dengan 6 desimal
-    const r2usdBalanceRaw = await getFormattedBalance(wallet, r2usdAddress, 6); // R2USD dengan 6 desimal
+    const usdcBalanceRaw = await getFormattedBalance(wallet, usdcAddress, 6);
+    const r2usdBalanceRaw = await getFormattedBalance(wallet, r2usdAddress, 6);
     const usdcBalance = parseFloat(usdcBalanceRaw).toFixed(1);
     const r2usdBalance = parseFloat(r2usdBalanceRaw).toFixed(1);
     console.log(chalk.hex('#20B2AA')(`💰 Saldo USDC: ${usdcBalance}`));
@@ -104,8 +103,8 @@ async function swapUSDC(wallet) {
 
 async function depowbtc(wallet) {
   try {
-    const wbtcBalanceRaw = await getFormattedBalance(wallet, wbtcAddress, 8); // WBTC dengan 8 desimal
-    const wbtcBalance = parseFloat(wbtcBalanceRaw).toFixed(1);
+    const wbtcBalanceRaw = await getFormattedBalance(wallet, wbtcAddress, 8);
+    const wbtcBalance = parseFloat(wbtcBalanceRaw).toFixed(3);
     console.log(chalk.hex('#20B2AA')(`💰 Saldo WBTC: ${wbtcBalance}`));
 
     const amountWei = ethers.parseUnits(amountwbtc, 8);
