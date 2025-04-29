@@ -252,7 +252,8 @@ async function sepoliamain() {
   console.clear();
   for (const privateKey of privateKeys) {
     const wallet = new ethers.Wallet(privateKey, provider);
-    console.log(chalk.hex('#7B68EE')(`👤 Memproses ${wallet.address}\n`));
+    console.log(chalk.hex('#7B68EE')(` SEPOLIA `));
+    console.log(chalk.hex('#7B68EE')(`👤 Memproses ${wallet.address}`));
     
     console.log(chalk.hex('#66CDAA')(`🚀 SWAP`));
     await swapUSDC(wallet);
