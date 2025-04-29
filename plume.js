@@ -183,7 +183,7 @@ async function addLP1(wallet) {
 async function addLP2(wallet) {
   try {
     const r2usdBalanceRaw = await getFormattedBalance(wallet, r2usdAddress, 6);
-    const sr2usdBalanceRaw = await getFormattedBalance(wallet, sr2ARBusdAddress, 6);
+    const sr2usdBalanceRaw = await getFormattedBalance(wallet, sr2usdAddress, 6);
     const r2usdBalance = parseFloat(r2usdBalanceRaw).toFixed(1);
     const sr2usdBalance = parseFloat(sr2usdBalanceRaw).toFixed(1);
     console.log(chalk.hex('#20B2AA')(`💰 Saldo R2USD: ${r2usdBalance}`));
