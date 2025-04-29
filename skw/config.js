@@ -11,6 +11,11 @@ const wbtcAddress = "0x340a5B718557801f20AfD6E244C78Fcd1c0B2212";
 const depo_router = "0x9e9C178271b20F4b7C0d5073ae513017aAdE1f61";
 const poolAddress = "0x07aBD582Df3D3472AA687A0489729f9F0424b1e3";
 const poolAddress2 = "0x61F2AB7B0C0E10E18a3ed1C3bC7958540374A8DC";
+const sr2ARBusdAddress = "0x6b9573B7dB7fB98Ff4014ca8E71F57aB7B7ffDFB";
+const ARBpoolAddress = "0xCcE6bfcA2558c15bB5faEa7479A706735Aef9634";
+const ARBpoolAddress2 = "0x58F68180a997dA6F9b1af78aa616d8dFe46F2531";
+const PLUMEpoolAddress = "0x726cD35eE1AcE22e31ae51021A06DD24745D7f45";
+const PLUMEpoolAddress2 = "0x5DfEC10AE4EFdCBA51251F87949ae70fC6a36B5B";
 
 const swap_usdc = "0x095e7a95";
 const stake_r2u = "0x1a5f0f00";
@@ -41,6 +46,11 @@ module.exports = {
   depo_router,
   poolAddress,
   poolAddress2,
+  sr2ARBusdAddress,
+  ARBpoolAddress,
+  ARBpoolAddress2,
+  PLUMEpoolAddress,
+  PLUMEpoolAddress2,
   addLP_abi,
   erc20_abi,
   swap_usdc,
