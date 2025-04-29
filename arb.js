@@ -201,7 +201,7 @@ async function addLP2(wallet) {
     await approve(wallet, sr2ARBusdAddress, ARBpoolAddress2, sr2usdAmount);
 
     const minMintAmount = ethers.parseUnits("1", 18);
-    const contractPool2 = new ethers.Contract(poolAddress2, addLP_abi, wallet);
+    const contractPool2 = new ethers.Contract(ARBpoolAddress2, addLP_abi, wallet);
     console.log(chalk.hex('#20B2AA')(`📤 ADD ${ethers.formatUnits(r2usdAmount, 6)} R2USD + ${ethers.formatUnits(sr2usdAmount, 6)} SR2USD `));
 
     const tx2 = await contractPool2.add_liquidity(
