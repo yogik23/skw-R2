@@ -154,7 +154,8 @@ async function addLP1(wallet) {
       6
     );
 
-    await approve(wallet, usdcAddress, ARBpoolAddress, r2usdAmount);
+    await approve(wallet, usdcAddress, ARBpoolAddress, usdcAmount);
+    await approve(wallet, r2usdAddress, ARBpoolAddress, r2usdAmount);
 
     const minMintAmount = ethers.parseUnits("1", 18);
     const contractPool1 = new ethers.Contract(ARBpoolAddress, addLP_abi, wallet);
