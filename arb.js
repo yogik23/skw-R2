@@ -121,7 +121,7 @@ async function stakeR2USD(wallet) {
       ethers.getBytes("0x" + "00".repeat(576)) // padding
     ]);
 
-    await approve(wallet, r2usdAddress, sr2usdAddress, amountWei);
+    await approve(wallet, r2usdAddress, sr2ARBusdAddress, amountWei);
     console.log(chalk.hex('#20B2AA')(`⛏️  Staking R2 to SR2...`));
     const tx = await wallet.sendTransaction({
       to: sr2ARBusdAddress,
