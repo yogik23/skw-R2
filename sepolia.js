@@ -249,7 +249,6 @@ async function addLP2(wallet) {
 }
 
 async function sepoliamain() {
-  console.clear();
   for (const privateKey of privateKeys) {
     const wallet = new ethers.Wallet(privateKey, provider);
     console.log(chalk.hex('#7B68EE')(` SEPOLIA `));
