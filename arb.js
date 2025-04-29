@@ -223,11 +223,12 @@ async function addLP2(wallet) {
   }
 }
 
-async function main() {
+async function arbmain() {
   console.clear();
   for (const privateKey of privateKeys) {
     const wallet = new ethers.Wallet(privateKey, provider);
-    console.log(chalk.hex('#7B68EE')(`👤 Memproses ${wallet.address}\n`));
+    console.log(chalk.hex('#7B68EE')(` ARBITRUM SEPOLIA`));
+    console.log(chalk.hex('#7B68EE')(`👤 Memproses ${wallet.address}`));
     
     console.log(chalk.hex('#66CDAA')(`🚀 SWAP`));
     await swapUSDC(wallet);
@@ -248,4 +249,8 @@ async function main() {
   }
 }
 
-main();
+module.exports = { arbmain };
+
+if (require.main === module) {
+  arbmain();
+}
