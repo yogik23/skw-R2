@@ -292,25 +292,25 @@ async function addLP2(wallet) {
 async function sepoliamain() {
   for (const privateKey of privateKeys) {
     const wallet = new ethers.Wallet(privateKey, provider);
-    console.log(chalk.hex('#7B68EE')(`🌐 SEPOLIA ${wallet.address}`));
+    console.log(chalk.hex('#DC143C')(`🌐 SEPOLIA ${wallet.address}`));
     
-    console.log(chalk.hex('#66CDAA')(`🚀 SWAP`));
+    console.log(chalk.hex('#DC143C')(`🚀 SWAP`));
     await swapUSDC(wallet);
     await delay(5000);
 
-    console.log(chalk.hex('#66CDAA')(`🚀 STAKE`));
+    console.log(chalk.hex('#DC143C')(`🚀 STAKE`));
     await stakeR2USD(wallet);
     await delay(5000);
 
-    console.log(chalk.hex('#66CDAA')(`🚀 DEPOSIT WBTC`));
+    console.log(chalk.hex('#DC143C')(`🚀 DEPOSIT WBTC`));
     await depowbtc(wallet);
     await delay(5000);
 
-    console.log(chalk.hex('#66CDAA')(`🚀 ADD USDC-R2USDC`));
+    console.log(chalk.hex('#DC143C')(`🚀 ADD USDC-R2USDC`));
     await addLP1(wallet);    
     await delay(5000);
 
-    console.log(chalk.hex('#66CDAA')(`🚀 ADD R2USDC-sR2USDC`));
+    console.log(chalk.hex('#DC143C')(`🚀 ADD R2USDC-sR2USDC`));
     await addLP2(wallet);
     await delay(5000);  
 
