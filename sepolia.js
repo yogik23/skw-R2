@@ -32,11 +32,6 @@ const privateKeys = fs.readFileSync(path.join(__dirname, "privatekey.txt"), "utf
   .map(k => k.trim())
   .filter(k => k.length > 0);
 
-async function getPriceData() {
-  const response = await axios.get('https://testnet.r2.money/v1/public/dashboard');
-  return response.data.data.price;
-}
-
 async function getPriceData(retries = 5, delayMs = 2000) {
   for (let i = 0; i < retries; i++) {
     try {
@@ -52,7 +47,6 @@ async function getPriceData(retries = 5, delayMs = 2000) {
     }
   }
 }
-
 
 async function approve(wallet, tokenAddress, spenderAddress, amountIn) {
   try {
@@ -137,7 +131,7 @@ async function stakeR2USD(wallet) {
       const data = ethers.concat([
         ethers.getBytes(stake_r2u),
         ethers.getBytes(amountHex),
-        ethers.getBytes("0x" + "00".repeat(576)) // padding
+        ethers.getBytes("0x" + "00".repeat(576)) 
       ]);
 
       await approve(wallet, r2usdAddress, sr2usdAddress, amountWei);
@@ -209,7 +203,6 @@ async function addLP1(wallet) {
     const r2usdAmountFloat = usdcAmountFloat / r2usdPrice;
     const r2usdAmount = ethers.parseUnits(r2usdAmountFloat.toFixed(6), 6);
 
-    // ❗ CEK saldo cukup
     if (parseFloat(usdcBalanceRaw) < parseFloat(ethers.formatUnits(usdcAmount, 6))) {
       console.log(chalk.yellow(`⚠️ Saldo USDC tidak cukup untuk add LP\n`));
       return;
@@ -261,7 +254,6 @@ async function addLP2(wallet) {
     const sr2usdAmountFloat = r2usdAmountFloat / sr2usdPrice;
     const sr2usdAmount = ethers.parseUnits(sr2usdAmountFloat.toFixed(6), 6); 
 
-    // ❗ CEK saldo cukup
     if (parseFloat(r2usdBalanceRaw) < r2usdAmountFloat) {
       console.log(chalk.yellow(`⚠️  Saldo R2USD tidak cukup untuk add LP2\n`));
       return;
