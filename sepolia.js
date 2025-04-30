@@ -254,23 +254,23 @@ async function sepoliamain() {
     
     console.log(chalk.hex('#DC143C')(`🚀 SWAP`));
     await swapUSDC(wallet);
-    await delay(5000);
+    await delay(10000);
 
     console.log(chalk.hex('#DC143C')(`🚀 STAKE`));
     await stakeR2USD(wallet);
-    await delay(5000);
+    await delay(10000);
 
     console.log(chalk.hex('#DC143C')(`🚀 DEPOSIT WBTC`));
     await depowbtc(wallet);
-    await delay(5000);
+    await delay(10000);
 
     console.log(chalk.hex('#DC143C')(`🚀 ADD USDC-R2USDC`));
     await addLP1(wallet);    
-    await delay(5000);
+    await delay(10000);
 
     console.log(chalk.hex('#DC143C')(`🚀 ADD R2USDC-sR2USDC`));
     await addLP2(wallet);
-    await delay(5000);  
+    await delay(10000);  
 
   }
 }
