@@ -56,7 +56,7 @@ async function approve(wallet, tokenAddress, spenderAddress, amountIn) {
       console.log(chalk.hex('#20B2AA')(`🔓 Approving ${tokenAddress}`));
       const tx = await Contract.approve(spenderAddress, ethers.MaxUint256);
       await tx.wait();
-      console.log(chalk.hex('#66CDAA')(`✅ Approved ${tokenAddress}\n`));
+      console.log(chalk.hex('#32CD32')(`✅ Approved ${tokenAddress}\n`));
     }
   } catch (error) {
     console.error(`Failed to Approved token ${tokenAddress}:`, error);
@@ -85,8 +85,8 @@ async function swapUSDC(wallet) {
     const usdcBalance = parseFloat(usdcBalanceRaw).toFixed(1);
     const r2usdBalance = parseFloat(r2usdBalanceRaw).toFixed(1);
     
-    console.log(chalk.hex('#20B2AA')(`💰 Saldo USDC: ${usdcBalance}`));
-    console.log(chalk.hex('#20B2AA')(`💰 Saldo R2USD: ${r2usdBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo USDC: ${usdcBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo R2USD: ${r2usdBalance}`));
 
     if (parseFloat(amountswapUSDC) < parseFloat(usdcBalance)) {
       const amountWei = ethers.parseUnits(amountswapUSDC, 6);
@@ -100,17 +100,17 @@ async function swapUSDC(wallet) {
       ]);
 
       await approve(wallet, usdcAddress, r2usdAddress, amountWei);
-      console.log(chalk.hex('#20B2AA')(`🔁 Swapping USDC to R2...`));
+      console.log(chalk.hex('#20B2AA')(`🔁 Swapping ${amountswapUSDC} USDC to R2USD...`));
       const tx = await wallet.sendTransaction({
         to: r2usdAddress,
         data,
         gasLimit: 500000,
       });
-      console.log(chalk.hex('#FF8C00')(`⏳ Tx dikirim ke blockchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx.hash}`));
+      console.log(chalk.hex('#66CDAA')(`⏳ Tx dikirim ke blockchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx.hash}`));
       await tx.wait();
-      console.log(chalk.hex('#66CDAA')(`✅ Swap success\n`));
+      console.log(chalk.hex('#32CD32')(`✅ Swap success\n`));
     } else {
-      console.log(chalk.red(`❌ Saldo USDC tidak cukup untuk swap\n`));
+      console.log(chalk.hex('#FF8C00')(`⚠️ Saldo USDC tidak cukup untuk swap\n`));
     }
 
   } catch (error) {
@@ -123,7 +123,7 @@ async function stakeR2USD(wallet) {
   try {
     const r2usdBalanceRaw = await getFormattedBalance(wallet, r2usdAddress, 6);
     const r2usdBalance = parseFloat(r2usdBalanceRaw).toFixed(1);
-    console.log(chalk.hex('#20B2AA')(`💰 Saldo R2USD: ${r2usdBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo R2USD: ${r2usdBalance}`));
 
     if (parseFloat(amountstakeR2USD) < parseFloat(r2usdBalance)) {
       const amountWei = ethers.parseUnits(amountstakeR2USD, 6);
@@ -131,21 +131,21 @@ async function stakeR2USD(wallet) {
       const data = ethers.concat([
         ethers.getBytes(stake_r2u),
         ethers.getBytes(amountHex),
-        ethers.getBytes("0x" + "00".repeat(576)) 
+        ethers.getBytes("0x" + "00".repeat(576))
       ]);
 
       await approve(wallet, r2usdAddress, sr2usdAddress, amountWei);
-      console.log(chalk.hex('#20B2AA')(`⛏️  Staking R2 to SR2...`));
+      console.log(chalk.hex('#20B2AA')(`⛏️  Staking ${amountstakeR2USD} R2USD to sR2USD...`));
       const tx = await wallet.sendTransaction({
         to: sr2usdAddress,
         data,
         gasLimit: 500000,
       });
-      console.log(chalk.hex('#FF8C00')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx.hash}`));
+      console.log(chalk.hex('#66CDAA')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx.hash}`));
       await tx.wait();
-      console.log(chalk.hex('#66CDAA')(`✅ Staking confirmed\n`));
+      console.log(chalk.hex('#32CD32')(`✅ Staking confirmed\n`));
     } else {
-      console.log(chalk.red(`❌ Saldo R2USD tidak cukup untuk staking\n`));
+      console.log(chalk.hex('#FF8C00')(`⚠️ Saldo R2USD tidak cukup untuk staking\n`));
     }
 
   } catch (error) {
@@ -158,7 +158,7 @@ async function depowbtc(wallet) {
   try {
     const wbtcBalanceRaw = await getFormattedBalance(wallet, wbtcAddress, 8);
     const wbtcBalance = parseFloat(wbtcBalanceRaw).toFixed(3);
-    console.log(chalk.hex('#20B2AA')(`💰 Saldo WBTC: ${wbtcBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo WBTC: ${wbtcBalance}`));
 
     if (parseFloat(amountwbtc) <= parseFloat(wbtcBalance)) {
       const amountWei = ethers.parseUnits(amountwbtc, 8);
@@ -172,11 +172,11 @@ async function depowbtc(wallet) {
         { gasLimit: 500000 }
       );
 
-      console.log(chalk.hex('#FF8C00')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx.hash}`));
+      console.log(chalk.hex('#66CDAA')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx.hash}`));
       await tx.wait();
-      console.log(chalk.hex('#66CDAA')(`✅ Deposit WBTC Sukses\n`));
+      console.log(chalk.hex('#32CD32')(`✅ Deposit WBTC Sukses\n`));
     } else {
-      console.log(chalk.red(`❌ Saldo WBTC tidak cukup untuk deposit\n`));
+      console.log(chalk.hex('#FF8C00')(`⚠️ Saldo WBTC tidak cukup untuk deposit\n`));
     }
 
   } catch (error) {
@@ -192,8 +192,8 @@ async function addLP1(wallet) {
     const usdcBalance = parseFloat(usdcBalanceRaw).toFixed(1);
     const r2usdBalance = parseFloat(r2usdBalanceRaw).toFixed(1);
 
-    console.log(chalk.hex('#20B2AA')(`💰 Saldo USDC: ${usdcBalance}`));
-    console.log(chalk.hex('#20B2AA')(`💰 Saldo R2USD: ${r2usdBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo USDC: ${usdcBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo R2USD: ${r2usdBalance}`));
 
     const usdcAmount = ethers.parseUnits(amountLPUSDC, 6);
     const priceData = await getPriceData();
@@ -203,12 +203,13 @@ async function addLP1(wallet) {
     const r2usdAmountFloat = usdcAmountFloat / r2usdPrice;
     const r2usdAmount = ethers.parseUnits(r2usdAmountFloat.toFixed(6), 6);
 
+ 
     if (parseFloat(usdcBalanceRaw) < parseFloat(ethers.formatUnits(usdcAmount, 6))) {
-      console.log(chalk.yellow(`⚠️ Saldo USDC tidak cukup untuk add LP\n`));
+      console.log(chalk.hex('#FF8C00')(`⚠️ Saldo USDC tidak cukup untuk add LP\n`));
       return;
     }
     if (parseFloat(r2usdBalanceRaw) < parseFloat(ethers.formatUnits(r2usdAmount, 6))) {
-      console.log(chalk.yellow(`⚠️ Saldo R2USD tidak cukup untuk add LP\n`));
+      console.log(chalk.hex('#FF8C00')(`⚠️ Saldo R2USD tidak cukup untuk add LP\n`));
       return;
     }
 
@@ -218,7 +219,7 @@ async function addLP1(wallet) {
     const minMintAmount = ethers.parseUnits("1", 18);
     const contractPool1 = new ethers.Contract(poolAddress, addLP_abi, wallet);
 
-    console.log(chalk.hex('#20B2AA')(`📤 ADD ${ethers.formatUnits(usdcAmount, 6)} USDC + ${ethers.formatUnits(r2usdAmount, 6)} R2USD `));
+    console.log(chalk.hex('#20B2AA')(`📤 ADD ${amountLPUSDC} USDC + ${ethers.formatUnits(r2usdAmount, 6)} R2USD `));
 
     const tx1 = await contractPool1.add_liquidity(
       [usdcAmount, r2usdAmount],
@@ -227,9 +228,9 @@ async function addLP1(wallet) {
       { gasLimit: 500000 }
     );
 
-    console.log(chalk.hex('#FF8C00')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx1.hash}`));
+    console.log(chalk.hex('#66CDAA')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx1.hash}`));
     await tx1.wait();
-    console.log(chalk.hex('#66CDAA')(`✅ Liquidity added to the pool\n`));
+    console.log(chalk.hex('#32CD32')(`✅ Liquidity added to the pool\n`));
   } catch (error) {
     console.error(`❌ Failed to ADD Liquidity:`, error.message || error);
     console.log();
@@ -243,8 +244,8 @@ async function addLP2(wallet) {
     const r2usdBalance = parseFloat(r2usdBalanceRaw).toFixed(1);
     const sr2usdBalance = parseFloat(sr2usdBalanceRaw).toFixed(1);
 
-    console.log(chalk.hex('#20B2AA')(`💰 Saldo R2USD: ${r2usdBalance}`));
-    console.log(chalk.hex('#20B2AA')(`💰 Saldo SR2USD: ${sr2usdBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo R2USD: ${r2usdBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo SR2USD: ${sr2usdBalance}`));
 
     const r2usdAmount = ethers.parseUnits(amountLPR2USD, 6);    
     const priceData = await getPriceData();
@@ -255,11 +256,11 @@ async function addLP2(wallet) {
     const sr2usdAmount = ethers.parseUnits(sr2usdAmountFloat.toFixed(6), 6); 
 
     if (parseFloat(r2usdBalanceRaw) < r2usdAmountFloat) {
-      console.log(chalk.yellow(`⚠️  Saldo R2USD tidak cukup untuk add LP2\n`));
+      console.log(chalk.hex('#FF8C00')(`⚠️  Saldo R2USD tidak cukup untuk add LP2\n`));
       return;
     }
     if (parseFloat(sr2usdBalanceRaw) < sr2usdAmountFloat) {
-      console.log(chalk.yellow(`⚠️  Saldo SR2USD tidak cukup untuk add LP2\n`));
+      console.log(chalk.hex('#FF8C00')(`⚠️  Saldo SR2USD tidak cukup untuk add LP2\n`));
       return;
     }
 
@@ -268,7 +269,7 @@ async function addLP2(wallet) {
 
     const minMintAmount = ethers.parseUnits("1", 18);
     const contractPool2 = new ethers.Contract(poolAddress2, addLP_abi, wallet);
-    console.log(chalk.hex('#20B2AA')(`📤 ADD ${ethers.formatUnits(r2usdAmount, 6)} R2USD + ${ethers.formatUnits(sr2usdAmount, 6)} SR2USD `));
+    console.log(chalk.hex('#20B2AA')(`📤 ADD ${amountLPR2USD} R2USD + ${ethers.formatUnits(sr2usdAmount, 6)} SR2USD `));
 
     const tx2 = await contractPool2.add_liquidity(
       [r2usdAmount, sr2usdAmount],
@@ -279,9 +280,9 @@ async function addLP2(wallet) {
       }
     );
 
-    console.log(chalk.hex('#FF8C00')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx2.hash}`));
+    console.log(chalk.hex('#66CDAA')(`⏳ Tx dikirim ke blokchain!\n🌐 https://eth-sepolia.blockscout.com/tx/${tx2.hash}`));
     await tx2.wait();
-    console.log(chalk.hex('#66CDAA')(`✅ Liquidity added to the pool\n`));
+    console.log(chalk.hex('#32CD32')(`✅ Liquidity added to the pool\n`));
   } catch (error) {
     console.error(`❌ Failed to ADD Liquidity:`, error.message || error);
     console.log();
