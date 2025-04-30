@@ -292,7 +292,7 @@ async function addLP2(wallet) {
 async function sepoliamain() {
   for (const privateKey of privateKeys) {
     const wallet = new ethers.Wallet(privateKey, provider);
-    console.log(chalk.hex('#DC143C')(`🌐 SEPOLIA ${wallet.address}`));
+    console.log(chalk.hex('#800080')(`🌐 SEPOLIA ${wallet.address}`));
     
     console.log(chalk.hex('#DC143C')(`🚀 SWAP`));
     await swapUSDC(wallet);
