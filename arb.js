@@ -9,11 +9,8 @@ const {
   amountLPR2USD,
   amountswapUSDC,
   amountstakeR2USD,
-  amountwbtc,
   usdcAddress,
   r2usdAddress,
-  wbtcAddress,
-  depo_router,
   sr2ARBusdAddress,
   ARBpoolAddress,
   ARBpoolAddress2,
@@ -22,6 +19,10 @@ const {
   swap_usdc,
   stake_r2u,
   delay,
+  getPriceData,
+  approve,
+  checkBalance,
+  getFormattedBalance,
 } = require('./skw/config');
 
 const RPC = "https://arb-sepolia.g.alchemy.com/v2/Pz6e0aen8W0h9LGSKLq_U2zzdpWekHTg";
@@ -31,52 +32,6 @@ const privateKeys = fs.readFileSync(path.join(__dirname, "privatekey.txt"), "utf
   .split("\n")
   .map(k => k.trim())
   .filter(k => k.length > 0);
-
-async function getPriceData(retries = 5, delayMs = 2000) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const response = await axios.get('https://testnet.r2.money/v1/public/dashboard');
-      return response.data.data.price;
-    } catch (error) {
-      console.error(`⚠️ Gagal ambil harga (Percobaan ${i + 1}):`);
-      if (i < retries - 1) {
-        await new Promise(resolve => setTimeout(resolve, delayMs));
-      } else {
-        throw new Error("❌ Gagal mendapatkan data harga setelah beberapa percobaan.");
-      }
-    }
-  }
-}
-
-async function approve(wallet, tokenAddress, spenderAddress, amountIn) {
-  try {
-    const Contract = new ethers.Contract(tokenAddress, erc20_abi, wallet);
-    const allowance = await Contract.allowance(wallet.address, spenderAddress);
-    if (allowance < amountIn) {
-      console.log(chalk.hex('#20B2AA')(`🔓 Approving ${tokenAddress}`));
-      const tx = await Contract.approve(spenderAddress, ethers.MaxUint256);
-      await tx.wait();
-      console.log(chalk.hex('#32CD32')(`✅ Approved ${tokenAddress}\n`));
-    }
-  } catch (error) {
-    console.error(`Failed to Approved token ${tokenAddress}:`, error);
-  }
-}
-
-async function checkBalance(wallet, tokenAddress) {
-  try {
-    const Contract = new ethers.Contract(tokenAddress, erc20_abi, wallet);
-    const balance = await Contract.balanceOf(wallet.address);
-    return balance;
-  } catch (error) {
-    console.error(`Failed to check balance for token ${tokenAddress}:`, error);
-  }
-}
-
-async function getFormattedBalance(wallet, tokenAddress, decimals) {
-  const balanceRaw = await checkBalance(wallet, tokenAddress);
-  return ethers.formatUnits(balanceRaw, decimals);
-}
 
 async function swapUSDC(wallet) {
   try {
