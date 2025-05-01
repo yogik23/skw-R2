@@ -2,10 +2,10 @@ const { ethers } = require('ethers');
 const axios = require('axios');
 const chalk = require('chalk');
 
-const amountLPUSDC = "10";
-const amountLPR2USD = "510";
-const amountswapUSDC = "100";
-const amountstakeR2USD = "488";
+const amountLPUSDC = "1";
+const amountLPR2USD = "500";
+const amountswapUSDC = "1000";
+const amountstakeR2USD = "500";
 const amountwbtc = "0.01";
 
 const usdcAddress = "0xef84994eF411c4981328fFcE5Fda41cD3803faE4";
