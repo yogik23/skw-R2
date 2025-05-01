@@ -197,11 +197,14 @@ async function addLP1(wallet) {
 
 async function addLP2(wallet) {
   try {
+    const usdcBalanceRaw = await getFormattedBalance(wallet, usdcAddress, 6);
     const r2usdBalanceRaw = await getFormattedBalance(wallet, r2usdAddress, 6);
     const sr2usdBalanceRaw = await getFormattedBalance(wallet, sr2usdAddress, 6);
+    const usdcBalance = parseFloat(usdcBalanceRaw).toFixed(1);
     const r2usdBalance = parseFloat(r2usdBalanceRaw).toFixed(1);
     const sr2usdBalance = parseFloat(sr2usdBalanceRaw).toFixed(1);
 
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo USDC: ${usdcBalance}`));
     console.log(chalk.hex('#7B68EE')(`💰 Saldo R2USD: ${r2usdBalance}`));
     console.log(chalk.hex('#7B68EE')(`💰 Saldo SR2USD: ${sr2usdBalance}`));
 
@@ -251,26 +254,11 @@ async function sepoliamain() {
   for (const privateKey of privateKeys) {
     const wallet = new ethers.Wallet(privateKey, provider);
     console.log(chalk.hex('#800080')(`🌐 SEPOLIA ${wallet.address}`));
-    
-    console.log(chalk.hex('#DC143C')(`🚀 SWAP`));
-    await swapUSDC(wallet);
-    await delay(10000);
-
-    console.log(chalk.hex('#DC143C')(`🚀 STAKE`));
-    await stakeR2USD(wallet);
-    await delay(10000);
-
-    console.log(chalk.hex('#DC143C')(`🚀 DEPOSIT WBTC`));
-    await depowbtc(wallet);
-    await delay(10000);
-
-    console.log(chalk.hex('#DC143C')(`🚀 ADD USDC-R2USDC`));
-    await addLP1(wallet);    
-    await delay(10000);
 
     console.log(chalk.hex('#DC143C')(`🚀 ADD R2USDC-sR2USDC`));
     await addLP2(wallet);
     await delay(10000);  
+    
 
   }
 }
