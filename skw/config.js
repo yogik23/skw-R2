@@ -3,9 +3,9 @@ const axios = require('axios');
 const chalk = require('chalk');
 
 const amountLPUSDC = "10";
-const amountLPR2USD = "480";
-const amountswapUSDC = "980";
-const amountstakeR2USD = "490";
+const amountLPR2USD = "510";
+const amountswapUSDC = "100";
+const amountstakeR2USD = "488";
 const amountwbtc = "0.01";
 
 const usdcAddress = "0xef84994eF411c4981328fFcE5Fda41cD3803faE4";
