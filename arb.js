@@ -25,7 +25,7 @@ const {
   getFormattedBalance,
 } = require('./skw/config');
 
-const RPC = "https://arb-sepolia.g.alchemy.com/v2/Pz6e0aen8W0h9LGSKLq_U2zzdpWekHTg";
+const RPC = "https://arbitrum-sepolia-rpc.publicnode.com";
 const provider = new ethers.JsonRpcProvider(RPC);
 
 const privateKeys = fs.readFileSync(path.join(__dirname, "privatekey.txt"), "utf-8")
