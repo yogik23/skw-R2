@@ -169,7 +169,7 @@ async function addLP2(wallet) {
     const sr2usdBalance = parseFloat(sr2usdBalanceRaw).toFixed(1);
 
     console.log(chalk.hex('#7B68EE')(`💰 Saldo R2USD: ${r2usdBalance}`));
-    console.log(chalk.hex('#7B68EE')(`💰 Saldo R2USD: ${sr2usdBalance}`));
+    console.log(chalk.hex('#7B68EE')(`💰 Saldo sR2USD: ${sr2usdBalance}`));
 
     const r2usdAmount = ethers.parseUnits(amountLPR2USD, 6);    
     const priceData = await getPriceData();
@@ -179,12 +179,14 @@ async function addLP2(wallet) {
     const sr2usdAmountFloat = r2usdAmountFloat / sr2usdPrice;
     const sr2usdAmount = ethers.parseUnits(sr2usdAmountFloat.toFixed(6), 6); 
 
-    if (parseFloat(r2usdBalanceRaw) < r2usdAmountFloat) {
+    console.log(chalk.hex('#20B2AA')(`📤 ADD ${amountLPR2USD} R2USD + ${ethers.formatUnits(sr2usdAmount, 6)} sR2USD `));
+
+    if (parseFloat(r2usdBalanceRaw) < parseFloat(ethers.formatUnits(r2usdAmount, 6))) {
       console.log(chalk.hex('#FF8C00')(`⚠️ Saldo R2USD tidak cukup untuk add LP2\n`));
       return;
     }
-    if (parseFloat(sr2usdBalanceRaw) < sr2usdAmountFloat) {
-      console.log(chalk.hex('#FF8C00')(`⚠️ Saldo SR2USD tidak cukup untuk add LP2\n`));
+    if (parseFloat(sr2usdBalanceRaw) < parseFloat(ethers.formatUnits(sr2usdAmount, 6))) {
+      console.log(chalk.hex('#FF8C00')(`⚠️ Saldo sR2USD tidak cukup untuk add LP2\n`));
       return;
     }
 
@@ -193,7 +195,6 @@ async function addLP2(wallet) {
 
     const minMintAmount = ethers.parseUnits("1", 18);
     const contractPool2 = new ethers.Contract(PLUMEpoolAddress2, addLP_abi, wallet);
-    console.log(chalk.hex('#20B2AA')(`📤 ADD ${amountLPR2USD} R2USD + ${ethers.formatUnits(sr2usdAmount, 6)} SR2USD `));
 
     const tx2 = await contractPool2.add_liquidity(
       [r2usdAmount, sr2usdAmount],
@@ -226,10 +227,6 @@ async function plumemain() {
 
     console.log(chalk.hex('#DC143C')(`🚀 STAKE`));
     await stakeR2USD(wallet);
-    await delay(10000);
-
-    console.log(chalk.hex('#DC143C')(`🚀 ADD USDC-R2USDC`));
-    await addLP1(wallet);    
     await delay(10000);
 
     console.log(chalk.hex('#DC143C')(`🚀 ADD R2USDC-sR2USDC`));
