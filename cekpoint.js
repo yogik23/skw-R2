@@ -2,7 +2,6 @@ const axios = require('axios');
 const { ethers } = require('ethers');
 const chalk = require('chalk');
 require("dotenv").config();
-const cron = require('node-cron');
 const fs = require("fs");
 const path = require("path");
 
@@ -77,7 +76,7 @@ async function sendTG(address, point, retries = 3) {
   const date = escapeMarkdownV2(new Date().toISOString().split('T')[0]);
   const newpoint = escapeMarkdownV2(formatPoints(point));
   const newAddress = escapeMarkdownV2(address);
-  const message = `📅 *${date}*\n💦 *${newAddress}*\n➡️ *Points: ${newpoint}*`;
+  const message = `🚀 *R2 Testnet*\n📅 *${date}*\n💦 *${newAddress}*\n➡️ *Points: ${newpoint}*`;
 
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
