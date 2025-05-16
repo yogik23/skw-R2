@@ -1,6 +1,7 @@
 const { sepoliamain } = require('./sepolia');
 const { arbmain } = require('./arb');
 const { plumemain } = require('./plume');
+const { bscmain } = require('./bsc');
 const { pointmain } = require('./cekpoint');
 const { displayskw } = require('./skw/displayskw');
 const cron = require('node-cron');
@@ -12,6 +13,7 @@ async function startBot() {
   await sepoliamain();
   await arbmain();
   await plumemain();
+  await bscmain();
   await pointmain();
 }
 
